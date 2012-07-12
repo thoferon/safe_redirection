@@ -13,4 +13,5 @@ namespace :cucumber do
 end
 
 RSpec::Core::RakeTask.new do |t|
+  t.rspec_opts = '--color'
 end
