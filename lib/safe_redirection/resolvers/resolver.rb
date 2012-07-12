@@ -3,7 +3,7 @@ module SafeRedirection
     class Resolver
       attr_accessor :resolver
 
-      def initialize(resolver)
+      def initialize(resolver = nil)
         @resolver = resolver
       end
 
