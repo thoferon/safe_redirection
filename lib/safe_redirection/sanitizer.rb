@@ -20,7 +20,8 @@ module SafeRedirection
     end
 
     def base_path
-      URI(base_url).path
+      match_data = URI(base_url).path.match(/((.*)(\/)|(.+))$/)
+      match_data[2] || match_data[4]
     end
 
     def relative_path(path)
