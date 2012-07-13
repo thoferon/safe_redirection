@@ -37,5 +37,10 @@ resolver = SafeRedirection::Resolvers::ExceptionsResolver.new(MyApplication::App
 resolver.legitimate_base_urls << "http://www.outsite.tld/"
 sanitizer = SafeRedirection::Sanitizer.new(resolver, 'http://my.app.tld/', 'http://my.app.tld/')
 
-sanitizer.safe_url_for "http://some.url.tld/"
+sanitizer.safe_url_for "http://my.app.tld/articles/2"
+# => { :controller => "articles", :action => "show", :id => 2 }
+sanitizer.safe_url_for "http://www.outside.tld/path"
+# => "http://www.outside.tld/path"
+sanitizer.safe_url_fo "http://www.outside.but_somewhere_else.com/"
+# => "http://my.app.tld/"
 ```
