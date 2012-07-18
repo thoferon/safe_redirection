@@ -37,6 +37,14 @@ describe SafeRedirection::Sanitizer do
         subject.safe_url_for('http://test.tld/some/path/subpath')
       end
     end
+
+    context "when the resolver raises SafeRedirection::SanitizationCancelled" do
+      it "returns the URL passed" do
+        resolver.stub(:recognize_path).and_raise(SafeRedirection::SanitizationCancelled)
+        url = '/some/path?param=value'
+        subject.safe_url_for(url).should == url
+      end
+    end
   end
 
   describe "#base_path" do

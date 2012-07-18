@@ -13,10 +13,14 @@ module SafeRedirection
       path = relative_path(uri.path)
 
       if %w{http https}.include?(uri.scheme) || uri.scheme.nil?
-        resolver.recognize_path(path, :method => :get) rescue default_url
+        resolver.recognize_path(path, :method => :get)
       else
         default_url
       end
+    rescue SafeRedirection::SanitizationCancelled
+      redirect_url
+    rescue
+      default_url
     end
 
     def base_path
